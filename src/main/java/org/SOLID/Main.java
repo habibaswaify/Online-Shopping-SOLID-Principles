@@ -42,10 +42,11 @@ public class Main {
         orderService.addItemToOrder(order, item2);
 
         // Apply discount and calculate total
-        double discount = customer.getDiscount();
-        orderService.calculateTotal(order);
-        orderService.applyDiscountToOrder(order, discount);
-
+        if(customer.hasDiscount()){
+            double discount = .2;
+            orderService.calculateTotal(order);
+            orderService.applyDiscountToOrder(order, discount);
+        }
 
         // Process payment
         paymentProcessor.processPayment(order, order.getTotal());
@@ -57,7 +58,7 @@ public class Main {
     public static void main(String[] args) {
         // Example customers
 //        RegularCustomer customer = new RegularCustomer("Joe", "123-456-789", "joe@gmail.com");
-        PremiumCustomer customer = new PremiumCustomer("Jane", "987-654-321","jane@hotmail.com",.20);
+        PremiumCustomer customer = new PremiumCustomer("Jane", "987-654-321","jane@hotmail.com");
         // Services
         CustomerService customerService = new InMemoryCustomerService();
         customerService.saveCustomer(customer);
