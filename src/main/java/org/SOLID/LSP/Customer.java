@@ -11,6 +11,7 @@ public abstract class Customer {
     private String email;
     private final HashMap<String, Order> orders;
     private final String id;
+    private boolean hasDiscount;
     public Customer(String name, String phoneNumber, String email) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
@@ -55,5 +56,11 @@ public abstract class Customer {
         this.orders.put(order.getOrderID(), order);
     }
 
-    public abstract double getDiscount();
+    // Protected method to differentiate between the features of regular and premium customers
+    protected void setHasDiscount(boolean hasDiscount) {
+        this.hasDiscount = hasDiscount;
+    }
+    public boolean hasDiscount(){
+        return this.hasDiscount;
+    }
 }
